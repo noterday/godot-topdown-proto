@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbsw6weh68eoy"
-path="res://.godot/imported/Held Blocks.png-ba4d118e0615b3221a26c46c9f915e60.ctex"
+uid="uid://c7nx3lhi17hcv"
+path="res://.godot/imported/generative_map_tileset.png-063f6a1627125c2b58082c6ea086b1a8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/old_assets/player_assets/Held Blocks.png"
-dest_files=["res://.godot/imported/Held Blocks.png-ba4d118e0615b3221a26c46c9f915e60.ctex"]
+source_file="res://mapping/tools/perspective_tilemap_generator/generative_map_tileset.png"
+dest_files=["res://.godot/imported/generative_map_tileset.png-063f6a1627125c2b58082c6ea086b1a8.ctex"]
 
 [params]
 

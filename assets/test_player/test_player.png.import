@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7d5l21gf1nqt"
-path="res://.godot/imported/Drop Shadow.png-c4afc93a61cdab28575376a05503f322.ctex"
+uid="uid://b8ww121nbac"
+path="res://.godot/imported/test_player.png-08df33a2ce81ce32f85e22123b910024.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/old_assets/player_assets/Drop Shadow.png"
-dest_files=["res://.godot/imported/Drop Shadow.png-c4afc93a61cdab28575376a05503f322.ctex"]
+source_file="res://assets/test_player/test_player.png"
+dest_files=["res://.godot/imported/test_player.png-08df33a2ce81ce32f85e22123b910024.ctex"]
 
 [params]
 

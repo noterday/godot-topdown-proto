@@ -1,0 +1,39 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://b37oqq2w3ri6k"]
+
+[ext_resource type="Texture2D" uid="uid://c7nx3lhi17hcv" path="res://mapping/tools/perspective_tilemap_generator/generative_map_tileset.png" id="1_rm5es"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wpgsq"]
+texture = ExtResource("1_rm5es")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_wpgsq")

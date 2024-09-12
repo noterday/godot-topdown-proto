@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddexs8de6x33q"
-path="res://.godot/imported/spoon side.png-1f91307229a01b07f44e08dc82ebe423.ctex"
+uid="uid://dx4iqv2qnvecr"
+path="res://.godot/imported/tileset_test_01.png-608c7dc25ee108d875071e9d9052b77d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/old_assets/player_assets/spoon side.png"
-dest_files=["res://.godot/imported/spoon side.png-1f91307229a01b07f44e08dc82ebe423.ctex"]
+source_file="res://assets/tileset_test_01.png"
+dest_files=["res://.godot/imported/tileset_test_01.png-608c7dc25ee108d875071e9d9052b77d.ctex"]
 
 [params]
 
