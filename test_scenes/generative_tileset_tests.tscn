@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=4 uid="uid://cm1jlcps7i3d1"]
+
+[ext_resource type="TileSet" uid="uid://b37oqq2w3ri6k" path="res://mapping/tooling/perspective_tilemap_generator/tilemap_generator_tiles.tres" id="1_06dxw"]
+
+[node name="GenerativeTilesetTests" type="Node2D"]
+
+[node name="TilesetGenerator" type="TileMapLayer" parent="."]
+position = Vector2(200, 0)
+tile_map_data = PackedByteArray("AAAAAAAAAAAEAAAAAAAAAAEAAAACAAAAAAAAAAIAAAACAAAAAAAAAAMAAAADAAAAAAABAAAAAAAEAAAAAAABAAEAAAACAAAAAAABAAIAAAACAAAAAAABAAMAAAADAAAAAAACAAAAAAAEAAAAAAACAAEAAAACAAAAAAACAAIAAAABAAAAAAACAAMAAAAAAAAAAAADAAAAAAAEAAAAAAADAAEAAAACAAAAAAADAAIAAAABAAAAAAADAAMAAAAAAAAAAAAEAAAAAAAEAAAAAAAEAAEAAAACAAAAAAAEAAIAAAABAAAAAAAEAAMAAAAAAAAAAAA=")
+tile_set = ExtResource("1_06dxw")

@@ -16,10 +16,10 @@ class_name PerspectiveAnimatedSprite2D extends AnimatedSprite2D
 @onready var sub_sprites_atlas : Array[AtlasTexture] = []
 
 
-# Creates a set of z-indexed Sprite2D with preconfigured AtlasTexture crop regions
+## Creates a set of z-indexed Sprite2D with preconfigured AtlasTexture crop regions
 func _ready() -> void:
 	var sprite : Sprite2D
-	var max_size := get_maximum_size()
+	var max_size := _get_maximum_size()
 	var h : int
 	for i in range(ceil(max_size.y / float(MapGlobals.TILE_SIZE))):
 		h = i * MapGlobals.TILE_SIZE
@@ -36,8 +36,8 @@ func _ready() -> void:
 		self.add_child(sprite)
 
 
-# Returns the dimensions of the largest sprite in the sprite_frames ressource
-func get_maximum_size() -> Vector2:
+## Returns the dimensions of the largest sprite in the sprite_frames ressource
+func _get_maximum_size() -> Vector2:
 	var max_size := Vector2(0, 0)
 	var sprite_size : Vector2
 	for anim_name in sprite_frames.get_animation_names():
@@ -50,8 +50,8 @@ func get_maximum_size() -> Vector2:
 	return max_size
 
 
-# Called each time the CanvasItem is updated (a new sprite is drawn).
-# The current frame's texture is copied to every z-indexed sprite2D.
+## Called each time the CanvasItem is updated (a new sprite is drawn).
+## The current frame's texture is copied to every z-indexed sprite2D.
 func _draw() -> void:
 	var texture := sprite_frames.get_frame_texture(animation, frame)
 	for atlas in sub_sprites_atlas:

@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
 
-MapGlobals="*res://perspective_map_global.gd"
+MapGlobals="*res://autoloads/perspective_map_global.gd"
 
 [input]
 

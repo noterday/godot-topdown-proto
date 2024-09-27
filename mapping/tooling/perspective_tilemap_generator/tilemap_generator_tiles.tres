@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://b37oqq2w3ri6k"]
 
-[ext_resource type="Texture2D" uid="uid://b7872alvh3tc7" path="res://mapping/tools/perspective_tilemap_generator/generative_map_tileset.png" id="1_rm5es"]
+[ext_resource type="Texture2D" uid="uid://b7872alvh3tc7" path="res://mapping/tooling/perspective_tilemap_generator/generative_map_tileset.png" id="1_rm5es"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wpgsq"]
 texture = ExtResource("1_rm5es")

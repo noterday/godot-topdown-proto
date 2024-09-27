@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyd3yxhp4pctj"]
+
+[ext_resource type="Script" path="res://entities/stateless_prototype_player/stateless_prototype_player.gd" id="1_eih1f"]
+[ext_resource type="SpriteFrames" uid="uid://ct5hv87edmvfa" path="res://assets/test_player/test_player_frames.tres" id="2_tssxa"]
+[ext_resource type="Script" path="res://entities/tooling/perspective_nodes/perspective_animated_sprite_2d.gd" id="3_k8w2l"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8hom"]
+radius = 3.5
+height = 10.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("z_axis_root_node", "floor_collision")]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(90, 120)
+collision_mask = 16842752
+motion_mode = 1
+safe_margin = 0.04
+script = ExtResource("1_eih1f")
+jump_height = 12.0
+jump_time_to_peak = 0.3
+jump_time_to_descent = 0.3
+speed = 80
+z_axis_root_node = NodePath("Z-Axis")
+floor_collision = NodePath("CollisionShape2D")
+
+[node name="Z-Axis" type="Node2D" parent="."]
+
+[node name="PerspectiveAnimatedSprite2D" type="AnimatedSprite2D" parent="Z-Axis"]
+position = Vector2(-8, -30)
+sprite_frames = ExtResource("2_tssxa")
+animation = &"jump_rise_down"
+centered = false
+script = ExtResource("3_k8w2l")
+
+[node name="Camera2D" type="Camera2D" parent="Z-Axis"]
+position = Vector2(-30, -50)
+offset = Vector2(0, 40)
+zoom = Vector2(4, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3.5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_d8hom")
