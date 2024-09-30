@@ -1,6 +1,7 @@
 ## A Character2D which respects the 3/4 perspective and collision rules.
 class_name PerspectiveCharacter2D extends CharacterBody2D
 
+
 # Signals
 signal collided_with_floor
 

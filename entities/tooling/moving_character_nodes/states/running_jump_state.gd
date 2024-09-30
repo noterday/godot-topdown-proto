@@ -1,7 +1,9 @@
-class_name JumpState extends MovingCharacterState
+class_name RunningJumpState extends MovingCharacterState
+## A state for a jump without the ability to strafe back
 
 
-@export var speed := 50
+@export var speed := 90
+
 
 @export var jump_height : float
 @export var jump_time_to_peak : float
@@ -13,7 +15,9 @@ class_name JumpState extends MovingCharacterState
 @onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent))
 
 
+# Called when the node enters the scene tree for the first time.
 func enter() -> void:
+	parent.xy_direction = parent.facing_direction
 	parent.speed = speed
 	start_animation()
 	if parent.is_on_z_floor():
@@ -23,12 +27,8 @@ func enter() -> void:
 func physics_process(delta):
 	parent.z_velocity += _get_jump_gravity() * delta
 	parent.move(delta)
-	if parent.is_on_z_floor():
+	if parent.is_on_z_floor() or parent.z_axis == 0:
 		switch_to_state.emit("WalkState")
-
-
-func handle_movement_inputs(direction : Vector2) -> void:
-	parent.xy_direction = direction
 
 
 # Get the jump gravity correspoding the current half of the jump arc

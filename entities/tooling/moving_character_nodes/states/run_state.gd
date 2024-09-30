@@ -30,20 +30,16 @@ func physics_process(delta) -> void:
 ## Switches to a running jump state
 # TODO: Implement a running jump and call it here.
 func handle_jump_input() -> void:
-	switch_to_state.emit("JumpState")
+	switch_to_state.emit("RunningJumpState")
 
 
 ## Updates the animation to a running one.
 func start_animation(direction : Vector2):
-	if direction.y < 0:
+	if parent.facing_direction.y < 0:
 		parent.animation.play("run_up")
-		parent.facing_direction = Vector2(0, -1)
-	elif direction.y > 0:
+	elif parent.facing_direction.y > 0:
 		parent.animation.play("run_down")
-		parent.facing_direction = Vector2(0, 1)
-	elif direction.x < 0:
+	elif parent.facing_direction.x < 0:
 		parent.animation.play("run_left")
-		parent.facing_direction = Vector2(-1, 0)
-	elif direction.x > 0:
+	elif parent.facing_direction.x > 0:
 		parent.animation.play("run_right")
-		parent.facing_direction = Vector2(1, 0)

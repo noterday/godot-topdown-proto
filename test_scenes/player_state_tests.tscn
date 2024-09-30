@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://ck2hprb11mx4g"]
+[gd_scene load_steps=14 format=4 uid="uid://ck2hprb11mx4g"]
 
 [ext_resource type="TileSet" uid="uid://b37oqq2w3ri6k" path="res://mapping/tooling/perspective_tilemap_generator/tilemap_generator_tiles.tres" id="1_kkbn8"]
 [ext_resource type="Script" path="res://mapping/tooling/perspective_tilemap_nodes/perspective_tilemap_grouping.gd" id="2_n5rdt"]
@@ -8,9 +8,10 @@
 [ext_resource type="Script" path="res://entities/player/player.gd" id="5_uvp3q"]
 [ext_resource type="SpriteFrames" uid="uid://cqqcggc752bd6" path="res://assets/test_arc_tn/terranigma_arc_frames.tres" id="6_3sexr"]
 [ext_resource type="Script" path="res://entities/tooling/state_machine_nodes/state_machine.gd" id="8_lrwvv"]
-[ext_resource type="Script" path="res://entities/tooling/moving_character_nodes/walk_state.gd" id="9_w5v7t"]
-[ext_resource type="Script" path="res://entities/tooling/moving_character_nodes/jump_state.gd" id="10_ervj5"]
-[ext_resource type="Script" path="res://entities/tooling/moving_character_nodes/run_state.gd" id="11_20sgf"]
+[ext_resource type="Script" path="res://entities/tooling/moving_character_nodes/states/walk_state.gd" id="9_w5v7t"]
+[ext_resource type="Script" path="res://entities/tooling/moving_character_nodes/states/jump_state.gd" id="10_ervj5"]
+[ext_resource type="Script" path="res://entities/tooling/moving_character_nodes/states/run_state.gd" id="11_20sgf"]
+[ext_resource type="Script" path="res://entities/tooling/moving_character_nodes/states/running_jump_state.gd" id="12_huan1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_do1lt"]
 radius = 4.0
@@ -57,7 +58,7 @@ floor_collision = NodePath("CollisionShape2D")
 [node name="PerspectiveAnimatedSprite2D" type="AnimatedSprite2D" parent="Player/Z-Axis"]
 position = Vector2(-13, -36)
 sprite_frames = ExtResource("6_3sexr")
-animation = &"jump_up"
+animation = &"idle_down"
 centered = false
 script = ExtResource("3_mplqs")
 z_offset = 0
@@ -77,11 +78,17 @@ starting_state = NodePath("WalkState")
 [node name="WalkState" type="Node" parent="Player/StateMachine"]
 script = ExtResource("9_w5v7t")
 
+[node name="RunState" type="Node" parent="Player/StateMachine"]
+script = ExtResource("11_20sgf")
+
 [node name="JumpState" type="Node" parent="Player/StateMachine"]
 script = ExtResource("10_ervj5")
 jump_height = 12.0
 jump_time_to_peak = 0.3
 jump_time_to_descent = 0.3
 
-[node name="RunState" type="Node" parent="Player/StateMachine"]
-script = ExtResource("11_20sgf")
+[node name="RunningJumpState" type="Node" parent="Player/StateMachine"]
+script = ExtResource("12_huan1")
+jump_height = 12.0
+jump_time_to_peak = 0.3
+jump_time_to_descent = 0.3
