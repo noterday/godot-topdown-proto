@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://co10qai1vdnai"]
 
-[ext_resource type="TileSet" uid="uid://b37oqq2w3ri6k" path="res://mapping/tooling/perspective_tilemap_generator/tilemap_generator_tiles.tres" id="1_p45y6"]
-[ext_resource type="Script" path="res://mapping/tooling/perspective_tilemap_nodes/perspective_tilemap_grouping.gd" id="2_d1x4r"]
+[ext_resource type="TileSet" uid="uid://b37oqq2w3ri6k" path="res://mapping/tooling/tilemap_generator/tilemap_generator_tileset.tres" id="1_p45y6"]
+[ext_resource type="Script" path="res://mapping/tooling/perspective_tilemap_nodes/perspective_tilemap_group.gd" id="2_d1x4r"]
 [ext_resource type="TileSet" uid="uid://6mxkf8y2v63d" path="res://assets/test_tileset_01/test_tileset_01.tres" id="3_0euuf"]
 [ext_resource type="Script" path="res://mapping/tooling/perspective_tilemap_nodes/perspective_tilemap_layer.gd" id="4_psvdp"]
 [ext_resource type="PackedScene" uid="uid://dyd3yxhp4pctj" path="res://entities/stateless_prototype_player/stateless_prototype_player.tscn" id="5_c1i1c"]
