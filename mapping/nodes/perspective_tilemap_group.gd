@@ -5,6 +5,8 @@
 class_name PerspectiveTileMapLayerGroup extends TileMapLayer
 
 
+@export var bottom : int = 0
+
 ## Sets the z_axis value of all PerspectiveTileMapLayer children.
 func _process(_delta : float) -> void:
 	var i := 0

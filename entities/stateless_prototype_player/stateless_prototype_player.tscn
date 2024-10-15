@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entities/stateless_prototype_player/stateless_prototype_player.gd" id="1_eih1f"]
 [ext_resource type="SpriteFrames" uid="uid://ct5hv87edmvfa" path="res://assets/test_player/test_player_frames.tres" id="2_tssxa"]
-[ext_resource type="Script" path="res://entities/tooling/perspective_nodes/perspective_animated_sprite_2d.gd" id="3_k8w2l"]
+[ext_resource type="Script" path="res://entities/nodes/perspective_animated_sprite_2d.gd" id="3_k8w2l"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8hom"]
 radius = 3.5

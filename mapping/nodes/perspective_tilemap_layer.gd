@@ -14,6 +14,12 @@ class_name PerspectiveTileMapLayer extends TileMapLayer
 			_set_collision_bits_from_z_axis()
 
 
+## Duplicates the tile_set ressource as soon as it is assigned to make it unique.
+func _enter_tree() -> void:
+	if not Engine.is_editor_hint():
+		self.tile_set = self.tile_set.duplicate()  # Makes the tileset unique
+
+
 static func new_with_tileset(_tile_set : TileSet) -> PerspectiveTileMapLayer:
 	var tile_map_layer : PerspectiveTileMapLayer
 	tile_map_layer = PerspectiveTileMapLayer.new()
@@ -29,8 +35,3 @@ func _set_collision_bits_from_z_axis() -> void:
 		tile_set.set_physics_layer_collision_layer(0, MapGlobals.get_z_collision_masks(layer, true, false , false))
 		tile_set.set_physics_layer_collision_layer(1, MapGlobals.get_z_collision_masks(layer, false, true , false))
 		tile_set.set_physics_layer_collision_layer(2, MapGlobals.get_z_collision_masks(layer, false, false , true))
-
-
-## Duplicates the tile_set ressource as soon as it is assigned to make it unique.
-func _enter_tree() -> void:
-	self.tile_set = self.tile_set.duplicate()  # Makes the tileset unique
