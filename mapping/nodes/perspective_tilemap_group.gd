@@ -8,7 +8,7 @@ class_name PerspectiveTileMapLayerGroup extends TileMapLayer
 @export var bottom : int = 0
 
 ## Sets the z_axis value of all PerspectiveTileMapLayer children.
-func _process(_delta : float) -> void:
+func _ready() -> void:
 	var i := 0
 	for node in get_children(true):
 		if node is PerspectiveTileMapLayer:
