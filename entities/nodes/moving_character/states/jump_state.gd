@@ -16,8 +16,8 @@ class_name JumpState extends MovingCharacterState
 
 func enter() -> void:
 	parent.speed = speed
-	start_animation()
 	if parent.is_on_z_floor():
+		start_animation()
 		parent.z_velocity = jump_velocity
 
 

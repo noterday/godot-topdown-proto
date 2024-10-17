@@ -9,17 +9,15 @@ const TILE_SIZE := 8
 
 
 ## Starting value for the 3 types of map collisions (floor, walls, floor edges)
-enum TILE_MASKS {FLOOR = 8, WALL = 16, EDGE = 24}
+enum TILE_MASKS {FLOOR = 16, WALL = 24}
 
 
 ## Creates a bitmask for the floor/wall/edge collision layers
-func get_z_collision_masks(height : int, floors : bool, walls : bool, edges : bool) -> int:
+func get_z_collision_masks(height : int, floors : bool, walls : bool) -> int:
 	var mask := 0
 	height %= TILE_SIZE # Loops around every TILE_SIZE tiles
 	if floors:
 		mask |= (1 << height + TILE_MASKS.FLOOR)
 	if walls:
 		mask |= (1 << height + TILE_MASKS.WALL)
-	if edges:
-		mask |= (1 << height + TILE_MASKS.EDGE)
 	return mask

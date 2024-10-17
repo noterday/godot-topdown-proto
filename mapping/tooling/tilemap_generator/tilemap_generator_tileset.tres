@@ -46,4 +46,10 @@ texture = ExtResource("1_mn8fx")
 9:0/0 = 0
 
 [resource]
+custom_data_layer_0/name = "TilingLeftMatch"
+custom_data_layer_0/type = 6
+custom_data_layer_1/name = "TilingRightMatch"
+custom_data_layer_1/type = 6
+custom_data_layer_2/name = "TilingCenterMatch"
+custom_data_layer_2/type = 0
 sources/0 = SubResource("TileSetAtlasSource_wpgsq")

@@ -1,17 +1,10 @@
-[gd_scene load_steps=20 format=4 uid="uid://ck2hprb11mx4g"]
+[gd_scene load_steps=12 format=4 uid="uid://ck2hprb11mx4g"]
 
 [ext_resource type="TileSet" uid="uid://b37oqq2w3ri6k" path="res://mapping/tooling/tilemap_generator/tilemap_generator_tileset.tres" id="1_kkbn8"]
 [ext_resource type="Script" path="res://mapping/nodes/perspective_tilemap_group.gd" id="2_n5rdt"]
 [ext_resource type="Texture2D" uid="uid://78rhn26pxaks" path="res://assets/test_tileset_01/tileset_test_01.png" id="3_fyfxt"]
-[ext_resource type="Script" path="res://entities/nodes/perspective_animated_sprite_2d.gd" id="3_mplqs"]
 [ext_resource type="Script" path="res://mapping/nodes/perspective_tilemap_layer.gd" id="4_mvgvv"]
-[ext_resource type="Script" path="res://entities/player/player.gd" id="5_uvp3q"]
-[ext_resource type="SpriteFrames" uid="uid://cqqcggc752bd6" path="res://assets/test_arc_tn/terranigma_arc_frames.tres" id="6_3sexr"]
-[ext_resource type="Script" path="res://entities/nodes/state_machine/state_machine.gd" id="8_lrwvv"]
-[ext_resource type="Script" path="res://entities/nodes/moving_character/states/walk_state.gd" id="9_w5v7t"]
-[ext_resource type="Script" path="res://entities/nodes/moving_character/states/jump_state.gd" id="10_ervj5"]
-[ext_resource type="Script" path="res://entities/nodes/moving_character/states/run_state.gd" id="11_20sgf"]
-[ext_resource type="Script" path="res://entities/nodes/moving_character/states/running_jump_state.gd" id="12_huan1"]
+[ext_resource type="PackedScene" uid="uid://dfeetq5q3xxrh" path="res://test_scenes/player.tscn" id="5_aru2b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8gs55"]
 texture = ExtResource("3_fyfxt")
@@ -691,14 +684,10 @@ terrain_set_0/terrain_2/name = "Void"
 terrain_set_0/terrain_2/color = Color(0.46875, 0.5, 0.25, 1)
 sources/1 = SubResource("TileSetAtlasSource_rvbyd")
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_do1lt"]
-radius = 4.0
-height = 15.0
-
 [node name="PlayerStateTests" type="Node2D"]
 
 [node name="TilesetGeneratorExample" type="TileMapLayer" parent="."]
-position = Vector2(50, 51)
+position = Vector2(50, 50)
 tile_set = ExtResource("1_kkbn8")
 script = ExtResource("2_n5rdt")
 
@@ -723,54 +712,4 @@ tile_set = SubResource("TileSet_xfm08")
 script = ExtResource("4_mvgvv")
 z_axis = 16
 
-[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("state_machine", "animation", "z_axis_root_node", "floor_collision")]
-self_modulate = Color(1, 1, 1, 0)
-position = Vector2(90, 120)
-collision_mask = 16842752
-motion_mode = 1
-safe_margin = 0.04
-script = ExtResource("5_uvp3q")
-state_machine = NodePath("StateMachine")
-animation = NodePath("Z-Axis/PerspectiveAnimatedSprite2D")
-z_axis_root_node = NodePath("Z-Axis")
-floor_collision = NodePath("CollisionShape2D")
-
-[node name="Z-Axis" type="Node2D" parent="Player"]
-
-[node name="PerspectiveAnimatedSprite2D" type="AnimatedSprite2D" parent="Player/Z-Axis"]
-position = Vector2(-13, -36)
-sprite_frames = ExtResource("6_3sexr")
-animation = &"idle_down"
-centered = false
-script = ExtResource("3_mplqs")
-z_offset = 0
-
-[node name="Camera2D" type="Camera2D" parent="Player/Z-Axis"]
-zoom = Vector2(4, 4)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(0, -2)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_do1lt")
-
-[node name="StateMachine" type="Node" parent="Player" node_paths=PackedStringArray("starting_state")]
-script = ExtResource("8_lrwvv")
-starting_state = NodePath("WalkState")
-
-[node name="WalkState" type="Node" parent="Player/StateMachine"]
-script = ExtResource("9_w5v7t")
-
-[node name="RunState" type="Node" parent="Player/StateMachine"]
-script = ExtResource("11_20sgf")
-
-[node name="JumpState" type="Node" parent="Player/StateMachine"]
-script = ExtResource("10_ervj5")
-jump_height = 12.0
-jump_time_to_peak = 0.3
-jump_time_to_descent = 0.3
-
-[node name="RunningJumpState" type="Node" parent="Player/StateMachine"]
-script = ExtResource("12_huan1")
-jump_height = 12.0
-jump_time_to_peak = 0.3
-jump_time_to_descent = 0.3
+[node name="Player" parent="." instance=ExtResource("5_aru2b")]

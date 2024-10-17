@@ -58,7 +58,7 @@ func _create_z_collision_area() -> void:
 		for i in range(8):
 			z_collision_area = Area2D.new()
 			z_collision_area.name = "Z-Collision-Area " + str(i)
-			z_collision_area.collision_mask = MapGlobals.get_z_collision_masks(i, true, false, false)
+			z_collision_area.collision_mask = MapGlobals.get_z_collision_masks(i, true, false)
 			z_collision_area.add_child(floor_collision.duplicate())
 			z_collision_area.position.y -= i * MapGlobals.TILE_SIZE
 			z_floor_detection_area_holder.add_child(z_collision_area)
@@ -77,8 +77,7 @@ func _z_axis_position_update(old : int, new : int) -> void:
 
 # Update the collision mask of the CharacterBody2D according to the Z axis
 func _z_collision_mask_update() -> void:
-	#collision_mask = MapGlobals.get_z_collision_masks(z_axis / 8, false, true, is_on_z_floor())
-	collision_mask = MapGlobals.get_z_collision_masks(z_axis / 8, false, true, false)
+	collision_mask = MapGlobals.get_z_collision_masks(z_axis / 8, false, true)
 
 
 ## Attemps to collide with floor between the current Z-position and the given destination.

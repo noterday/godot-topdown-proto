@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://dfeetq5q3xxrh"]
+
+[ext_resource type="Script" path="res://entities/player/player.gd" id="1_jxssr"]
+[ext_resource type="SpriteFrames" uid="uid://cqqcggc752bd6" path="res://assets/test_arc_tn/terranigma_arc_frames.tres" id="2_tvmse"]
+[ext_resource type="Script" path="res://entities/nodes/perspective_animated_sprite_2d.gd" id="3_u1n4w"]
+[ext_resource type="Script" path="res://entities/nodes/state_machine/state_machine.gd" id="4_bjmuq"]
+[ext_resource type="Script" path="res://entities/nodes/moving_character/states/walk_state.gd" id="5_ac6l5"]
+[ext_resource type="Script" path="res://entities/nodes/moving_character/states/run_state.gd" id="6_hoxxj"]
+[ext_resource type="Script" path="res://entities/nodes/moving_character/states/jump_state.gd" id="7_wwrc0"]
+[ext_resource type="Script" path="res://entities/nodes/moving_character/states/running_jump_state.gd" id="8_o2bdw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_do1lt"]
+radius = 4.0
+height = 15.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "animation", "z_axis_root_node", "floor_collision")]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(90, 120)
+collision_mask = 16842752
+motion_mode = 1
+safe_margin = 0.04
+script = ExtResource("1_jxssr")
+state_machine = NodePath("StateMachine")
+animation = NodePath("Z-Axis/PerspectiveAnimatedSprite2D")
+z_axis_root_node = NodePath("Z-Axis")
+floor_collision = NodePath("CollisionShape2D")
+
+[node name="Z-Axis" type="Node2D" parent="."]
+
+[node name="PerspectiveAnimatedSprite2D" type="AnimatedSprite2D" parent="Z-Axis"]
+position = Vector2(-13, -36)
+sprite_frames = ExtResource("2_tvmse")
+animation = &"idle_down"
+centered = false
+script = ExtResource("3_u1n4w")
+z_offset = 0
+
+[node name="Camera2D" type="Camera2D" parent="Z-Axis"]
+zoom = Vector2(4, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_do1lt")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("4_bjmuq")
+starting_state = NodePath("WalkState")
+
+[node name="WalkState" type="Node" parent="StateMachine"]
+script = ExtResource("5_ac6l5")
+
+[node name="RunState" type="Node" parent="StateMachine"]
+script = ExtResource("6_hoxxj")
+
+[node name="JumpState" type="Node" parent="StateMachine"]
+script = ExtResource("7_wwrc0")
+jump_height = 12.0
+jump_time_to_peak = 0.3
+jump_time_to_descent = 0.3
+
+[node name="RunningJumpState" type="Node" parent="StateMachine"]
+script = ExtResource("8_o2bdw")
+jump_height = 12.0
+jump_time_to_peak = 0.3
+jump_time_to_descent = 0.3

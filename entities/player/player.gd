@@ -23,7 +23,7 @@ const DOUBLE_TAP_ACTIONS := ["move_left", "move_right", "move_up", "move_down"]
 
 
 # Processes the user input for the player character
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var double_tap = check_double_tap()
 	var move_direction = Input.get_vector(
 		MOVE_ACTIONS[0], MOVE_ACTIONS[1], 

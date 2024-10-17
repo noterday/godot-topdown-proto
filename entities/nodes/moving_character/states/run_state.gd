@@ -34,7 +34,7 @@ func handle_jump_input() -> void:
 
 
 ## Updates the animation to a running one.
-func start_animation(direction : Vector2):
+func start_animation(_direction : Vector2):
 	if parent.facing_direction.y < 0:
 		parent.animation.play("run_up")
 	elif parent.facing_direction.y > 0:
