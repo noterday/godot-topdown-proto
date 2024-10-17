@@ -45,7 +45,7 @@ const _total_layers := 8
 ## Generates the child tilemap layers when added to a scene
 func _ready() -> void:
 	super()
-	if Engine.is_editor_hint() or true:
+	if Engine.is_editor_hint():
 		generate_map()
 	else: # Debug
 		self_modulate.a = 0

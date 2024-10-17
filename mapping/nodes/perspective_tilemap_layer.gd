@@ -33,6 +33,5 @@ func _set_collision_bits_from_z_axis() -> void:
 	if not tile_set == null:
 		@warning_ignore("integer_division")
 		var z_layer = z_axis / 8
-		print("setting oo", z_layer)
 		tile_set.set_physics_layer_collision_layer(0, MapGlobals.get_z_collision_masks(z_layer, true, false))
 		tile_set.set_physics_layer_collision_layer(1, MapGlobals.get_z_collision_masks(z_layer, false, true))
