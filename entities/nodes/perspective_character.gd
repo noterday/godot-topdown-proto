@@ -17,9 +17,9 @@ signal collided_with_floor
 		z_axis = value
 		_z_collision_mask_update()
 		# Adjust the visual of the z-axis visual nodes
-		if z_axis_root_node:
-			z_axis_root_node.position.y = -(int(z_axis) % MapGlobals.TILE_SIZE)
-			z_axis_root_node.z_index = value
+		if visual_branch:
+			visual_branch.position.y = -(int(z_axis) % MapGlobals.TILE_SIZE)
+			visual_branch.z_index = value
 
 
 
@@ -28,7 +28,7 @@ signal collided_with_floor
 
 ## The following Node2D and it's children will have pixel accurate z_index graphical updates (optional).
 ## Graphical nodes must be under a branch of this node, otherwise Character will appear to jump in large steps on the z-axis.
-@export var z_axis_root_node : Node2D
+@export var visual_branch : Node2D
 
 
 ## The following collision box should have manage floor edge detection.
