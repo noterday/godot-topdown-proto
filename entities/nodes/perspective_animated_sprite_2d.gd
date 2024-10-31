@@ -20,6 +20,7 @@ class_name PerspectiveAnimatedSprite2D extends AnimatedSprite2D
 func _ready() -> void:
 	var sprite : Sprite2D
 	var max_size := _get_maximum_size()
+	centered = false # should always be off for these sprites
 	var h : int
 	for i in range(ceil(max_size.y / float(MapGlobals.TILE_SIZE))):
 		h = i * MapGlobals.TILE_SIZE
@@ -56,4 +57,3 @@ func _draw() -> void:
 	var texture := sprite_frames.get_frame_texture(animation, frame)
 	for atlas in sub_sprites_atlas:
 		atlas.atlas = texture
-		

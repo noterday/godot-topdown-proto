@@ -9,27 +9,27 @@
 [ext_resource type="Texture2D" uid="uid://b35bvs2kfqn3q" path="res://assets/test_lil_guy/simple.png" id="6_hufiy"]
 [ext_resource type="Script" path="res://entities/nodes/perspective_animated_sprite_2d.gd" id="7_hhx7o"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_eejlm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_akunv"]
 atlas = ExtResource("6_hufiy")
-region = Rect2(0, 0, 16, 24)
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dvrfa"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_s40uf"]
 atlas = ExtResource("6_hufiy")
-region = Rect2(0, 0, 16, 24)
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5egt6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_fo6fg"]
 atlas = ExtResource("6_hufiy")
-region = Rect2(16, 0, 16, 24)
+region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nsdiw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_d671q"]
 atlas = ExtResource("6_hufiy")
-region = Rect2(32, 0, 16, 24)
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s2iss"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_eejlm")
+"texture": SubResource("AtlasTexture_akunv")
 }],
 "loop": true,
 "name": &"idle",
@@ -37,13 +37,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dvrfa")
+"texture": SubResource("AtlasTexture_s40uf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5egt6")
+"texture": SubResource("AtlasTexture_fo6fg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nsdiw")
+"texture": SubResource("AtlasTexture_d671q")
 }],
 "loop": true,
 "name": &"walk",
@@ -52,7 +52,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_an5cm"]
 radius = 4.0
-height = 15.0
+height = 12.0
 
 [node name="NavigationTests" type="Node2D"]
 
@@ -144,6 +144,6 @@ animation = &"walk"
 script = ExtResource("7_hhx7o")
 
 [node name="FloorCollision" type="CollisionShape2D" parent="Entity"]
-position = Vector2(0, -2)
+position = Vector2(-0.5, 3)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_an5cm")
