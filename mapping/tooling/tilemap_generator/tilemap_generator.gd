@@ -47,7 +47,7 @@ func _ready() -> void:
 	super()
 	if Engine.is_editor_hint():
 		generate_map()
-	else: # Debug
+	else:
 		self_modulate.a = 0
 
 

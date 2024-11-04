@@ -4,6 +4,9 @@ extends MovingCharacter
 ## It sends input to it's child state machine node.
 
 
+signal debug_player_jumped(position : Vector2i)
+
+
 ## Name of the cardinal movement actions. Ordered for use in Input.get_vector
 const MOVE_ACTIONS := ["move_left", "move_right", "move_up", "move_down"]
 
@@ -34,6 +37,8 @@ func _process(_delta: float) -> void:
 		sm.active_state.handle_movement_inputs(move_direction)
 	if Input.is_action_just_pressed("jump"):
 		sm.active_state.handle_jump_input()
+		# Debug
+		debug_player_jumped.emit(position)
 
 
 ## Checks if a double-tap-able input has been double-tapped and return it's name

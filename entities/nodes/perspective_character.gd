@@ -3,6 +3,7 @@ class_name PerspectiveCharacter2D extends CharacterBody2D
 
 
 # Signals
+@warning_ignore("unused_signal")
 signal collided_with_floor
 
 
@@ -10,7 +11,8 @@ signal collided_with_floor
 ## Automatically updates visual, z-index and collision.
 @export var z_axis := 0.0:
 	set(value):
-		value = min(MapGlobals.TILE_SIZE * 7, max(0, value)) # Clamp value between 0 and TSIZE * 7
+		# Clamp value between 0 and TILE_HEIGHT * 7
+		value = min(MapGlobals.TILE_HEIGHT * 7, max(0, value)) 
 		if floor_collision: # Collide with floor if you have floor collisions
 			value = _z_axis_collision_floor_check(value) 
 		_z_axis_position_update(z_axis, value) # Done before setting z_axis to compare old vs new
@@ -18,7 +20,7 @@ signal collided_with_floor
 		_z_collision_mask_update()
 		# Adjust the visual of the z-axis visual nodes
 		if visual_branch:
-			visual_branch.position.y = -(int(z_axis) % MapGlobals.TILE_SIZE)
+			visual_branch.position.y = -(int(z_axis) % MapGlobals.TILE_HEIGHT)
 			visual_branch.z_index = value
 
 
@@ -60,19 +62,19 @@ func _create_z_collision_area() -> void:
 			z_collision_area.name = "Z-Collision-Area " + str(i)
 			z_collision_area.collision_mask = MapGlobals.get_z_collision_masks(i, true, false)
 			z_collision_area.add_child(floor_collision.duplicate())
-			z_collision_area.position.y -= i * MapGlobals.TILE_SIZE
+			z_collision_area.position.y -= i * MapGlobals.TILE_HEIGHT
 			z_floor_detection_area_holder.add_child(z_collision_area)
 		add_child(z_floor_detection_area_holder)
 
 
-## Updates the CharacterBody2D position vector when reaching a multiple of TILE_SIZE.
+## Updates the CharacterBody2D position vector when reaching a multiple of TILE_HEIGHT.
 func _z_axis_position_update(old : int, new : int) -> void:
-	old = old / MapGlobals.TILE_SIZE
-	new = new / MapGlobals.TILE_SIZE
+	old = old / MapGlobals.TILE_HEIGHT
+	new = new / MapGlobals.TILE_HEIGHT
 	if new != old:
-		position.y += (old - new) * MapGlobals.TILE_SIZE
+		position.y += (old - new) * MapGlobals.TILE_HEIGHT
 		if floor_collision:
-			z_floor_detection_area_holder.position.y -= (old - new) * MapGlobals.TILE_SIZE
+			z_floor_detection_area_holder.position.y -= (old - new) * MapGlobals.TILE_HEIGHT
 
 
 # Update the collision mask of the CharacterBody2D according to the Z axis
@@ -114,6 +116,6 @@ func is_on_z_floor() -> bool:
 	if not floor_collision:
 		return true
 	if z_floor_detection_area_holder.get_child(z_axis / 8).has_overlapping_bodies():
-		if int(z_axis) % MapGlobals.TILE_SIZE == 0:
+		if int(z_axis) % MapGlobals.TILE_HEIGHT == 0:
 			return true
 	return false

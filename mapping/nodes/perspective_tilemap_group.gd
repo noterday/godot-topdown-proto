@@ -9,6 +9,9 @@ class_name PerspectiveTileMapLayerGroup extends TileMapLayer
 ## TODO: Properly implement this.
 @export var bottom : int = 0
 
+# Set to a known node for learning purpose. Later it should be generated in code.
+@onready var nav_region : NavigationRegion2D
+
 
 ## Sets the z_axis value of all PerspectiveTileMapLayer children.
 func _ready() -> void:
@@ -19,7 +22,7 @@ func update_child_layer_z_axis():
 	var i := 0
 	for node in get_children(true):
 		if node is PerspectiveTileMapLayer:
-			node.z_axis = i * MapGlobals.TILE_SIZE
+			node.z_axis = i * MapGlobals.TILE_HEIGHT
 			i += 1
 	
 

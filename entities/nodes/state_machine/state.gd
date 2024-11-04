@@ -4,6 +4,7 @@ class_name State extends Node
 
 ## Signal used for asking the state machine to switch states
 ## This should be called defered to allow a state to finish execution before inactivating.
+@warning_ignore("unused_signal")
 signal switch_to_state(state_class_name : Object)
 
 

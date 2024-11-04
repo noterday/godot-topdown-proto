@@ -22,15 +22,15 @@ func _ready() -> void:
 	var max_size := _get_maximum_size()
 	centered = false # should always be off for these sprites
 	var h : int
-	for i in range(ceil(max_size.y / float(MapGlobals.TILE_SIZE))):
-		h = i * MapGlobals.TILE_SIZE
+	for i in range(ceil(max_size.y / float(MapGlobals.TILE_HEIGHT))):
+		h = i * MapGlobals.TILE_HEIGHT
 		sprite = Sprite2D.new()
 		sprite.centered = false
 		sprite.texture = AtlasTexture.new()
 		# Each texture is cropped to cover a row of the animation texture rect
-		sprite.texture.region = Rect2(0, h, max_size.x, MapGlobals.TILE_SIZE)
+		sprite.texture.region = Rect2(0, h, max_size.x, MapGlobals.TILE_HEIGHT)
 		sprite.position.y = h
-		# Z index decreases top to bottom. The sprite's feet will have 'TILE_SIZE' z-index
+		# Z index decreases top to bottom. The sprite's feet will have 'TILE_HEIGHT' z-index
 		sprite.z_index = max_size.y - h - z_offset
 		# Store the created Sprite2Ds and AtlasTextures
 		sub_sprites_atlas.append(sprite.texture)
