@@ -32,7 +32,6 @@ sprite_frames = ExtResource("2_tvmse")
 animation = &"idle_down"
 centered = false
 script = ExtResource("3_u1n4w")
-z_offset = 0
 
 [node name="Camera2D" type="Camera2D" parent="Visuals"]
 zoom = Vector2(4, 4)

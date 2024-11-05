@@ -22,7 +22,7 @@ func update_child_layer_z_axis():
 	var i := 0
 	for node in get_children(true):
 		if node is PerspectiveTileMapLayer:
-			node.z_axis = i * MapGlobals.TILE_HEIGHT
+			node.z_axis = i * MapGlobals.LAYER_HEIGHT
 			i += 1
 	
 
