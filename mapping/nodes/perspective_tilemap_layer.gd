@@ -54,71 +54,20 @@ func _set_collision_bits_from_z_axis() -> void:
 			)
 
 
-## Creates an return a set of polygon representing the floor collision.
-## A minimal set of polygons is created to represent the entire space of the floor.
-func get_floor_polygon() -> Array[PackedVector2Array]:
+## Returns every polygon for a given physic layer.
+func get_collision_polygons(physic_layer : int) -> Array[PackedVector2Array]:
 	var tile : TileData
-	var polygon_a : PackedVector2Array
-	var polygon_b : PackedVector2Array
+	var polygon : PackedVector2Array
 	var polygons : Array[PackedVector2Array]
 	
-	# Extract every collision polygon used for 'Floor' collisions
 	polygons = []
 	for cell in get_used_cells():
 		tile = get_cell_tile_data(cell)
-		for i in tile.get_collision_polygons_count(MapGlobals.TILESET_PHYSICS_LAYERS.FLOOR):
-			polygon_a = []
-			for point in tile.get_collision_polygon_points(
-				MapGlobals.TILESET_PHYSICS_LAYERS.FLOOR, i
-				):
-				polygon_a.append(point + map_to_local(cell))
-			polygons.append(polygon_a)
-			
-	# Merge the polygons into as few polygons as possible
-	# Adapted from: https://gist.github.com/afk-mario/15b5855ccce145516d1b458acfe29a28
-	var polygons_to_remove : Array
-	var index_to_remove : Dictionary
-	var merged_polygons : Array[PackedVector2Array]
-	
-	while true:
-		# Clear the polygons to remove
-		polygons_to_remove = []
-		index_to_remove = {}
-		# Iterate through every polygon
-		for i in polygons.size():
-			# Skip if the polygon was marked for removal in a previous iteration
-			if index_to_remove.get(i, false) == true:
-				continue
-			polygon_a = polygons[i]
-			
-			# Test merging with every other available polygon
-			# from the start of the list up to the current polygon
-			for j in i:
-				# Skip this second polygon if its due for removal
-				if index_to_remove.get(j, false) == true:
-					continue 
-				polygon_b = polygons[j]
-				merged_polygons = Geometry2D.merge_polygons(polygon_a, polygon_b)
-				
-				# The polygons dind't merge so skip to the next loop
-				if merged_polygons.size() != 1:
-					continue
-				
-				# Replace the second polygon with the merged one
-				polygons[j] = merged_polygons[0]
-				
-				# Mark to remove the first polygon which has been merged
-				polygons_to_remove.append(polygon_a)
-				index_to_remove[i] = true
-				break
-
-		# There is no polygon to remove so we finished
-		if polygons_to_remove.size() == 0:
-			break
-
-		# Remove the polygons marked to be removed
-		for polygon in polygons_to_remove:
-			var index = polygons.find(polygon)
-			polygons.pop_at(index)
-	
+		for i in tile.get_collision_polygons_count(physic_layer):
+			polygon = []
+			for point in tile.get_collision_polygon_points(physic_layer, i):
+				polygon.append(point + map_to_local(cell))
+			polygons.append(polygon)
 	return polygons
+	
+	

@@ -1,6 +1,9 @@
 ## Global value and utility functions related to tilemaps and collisions
 extends Node
 
+## The total amount of height layers possible
+const MAX_LAYERS := 8
+
 
 ## The standard height of a tile
 ## Determines the number of Z units between each collision layers and tilemap layers
@@ -28,3 +31,53 @@ func get_z_collision_masks(height : int, floors : bool, walls : bool) -> int:
 	if walls:
 		mask |= (1 << height + TILE_MASKS.WALL)
 	return mask
+
+
+func merge_polygons(polygons : Array[PackedVector2Array]) -> Array[PackedVector2Array]:
+	var polygon_a : PackedVector2Array
+	var polygon_b : PackedVector2Array
+	var polygons_to_remove : Array
+	var index_to_remove : Dictionary
+	var merged_polygons : Array[PackedVector2Array]
+	while true:
+		# Clear the polygons to remove
+		polygons_to_remove = []
+		index_to_remove = {}
+		# Iterate through every polygon
+		for i in polygons.size():
+			# Skip if the polygon was marked for removal in a previous iteration
+			if index_to_remove.get(i, false) == true:
+				continue
+			polygon_a = polygons[i]
+			
+			# Test merging with every other available polygon
+			# from the start of the list up to the current polygon
+			for j in i:
+				# Skip this second polygon if its due for removal
+				if index_to_remove.get(j, false) == true:
+					continue 
+				polygon_b = polygons[j]
+				merged_polygons = Geometry2D.merge_polygons(polygon_a, polygon_b)
+				
+				# The polygons dind't merge so skip to the next loop
+				if merged_polygons.size() != 1:
+					continue
+				
+				# Replace the second polygon with the merged one
+				polygons[j] = merged_polygons[0]
+				
+				# Mark to remove the first polygon which has been merged
+				polygons_to_remove.append(polygon_a)
+				index_to_remove[i] = true
+				break
+
+		# There is no polygon to remove so we finished
+		if polygons_to_remove.size() == 0:
+			break
+
+		# Remove the polygons marked to be removed
+		for polygon in polygons_to_remove:
+			var index = polygons.find(polygon)
+			polygons.pop_at(index)
+	
+	return polygons

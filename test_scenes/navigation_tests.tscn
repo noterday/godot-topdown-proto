@@ -138,6 +138,83 @@ script = ExtResource("4_f6god")
 z_axis = 56
 metadata/is_internal_tilemap_layer = true
 
+[node name="PerspectiveTileMapLayerGroup2" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAABAAoAAAABAAAAAAABAAsAAAABAAAAAAACAAsAAAABAAAAAAACAAwAAAABAAAAAAABAAwAAAABAAAAAAACAAoAAAABAAAAAAADAAsAAAABAAAAAAADAAoAAAABAAAAAAADAAwAAAABAAAAAAABAAkAAAAAAAAAAAACAAkAAAAAAAAAAAADAAkAAAAAAAAAAAABAAgAAAAAAAAAAAACAAgAAAAAAAAAAAADAAgAAAAAAAAAAAADAAcAAAAAAAAAAAACAAcAAAAAAAAAAAABAAcAAAAAAAAAAAA=")
+tile_set = ExtResource("1_dokfy")
+navigation_enabled = false
+script = ExtResource("2_6uvlg")
+layer_tileset = ExtResource("3_44csn")
+
+[node name="Layer 0" type="TileMapLayer" parent="PerspectiveTileMapLayerGroup2"]
+tile_map_data = PackedByteArray("AAABAAoAAQAJAAEAAAACAAsAAQAJAAIAAAACAAwAAQAJAAIAAAABAAwAAQAJAAEAAAABAAsAAQAJAAEAAAACAAoAAQAJAAIAAAADAAsAAQAKAAIAAAADAAoAAQAKAAIAAAADAAwAAQAKAAIAAAABAAkAAAAJAAIAAAACAAkAAAAJAAIAAAADAAkAAAAJAAIAAAABAAgAAAAJAAIAAAACAAgAAAAJAAIAAAADAAgAAAAJAAIAAAADAAcAAAAJAAIAAAACAAcAAAAJAAIAAAABAAcAAAAJAAIAAAA=")
+tile_set = ExtResource("3_44csn")
+navigation_enabled = false
+script = ExtResource("4_f6god")
+metadata/is_internal_tilemap_layer = true
+
+[node name="Layer 1" type="TileMapLayer" parent="PerspectiveTileMapLayerGroup2"]
+z_index = 8
+position = Vector2(0, -8)
+tile_map_data = PackedByteArray("AAABAAoAAAAIAAAAAAACAAsAAAAJAAIAAAACAAwAAAAJAAMAAAABAAwAAAAIAAMAAAABAAsAAAAIAAEAAAACAAoAAAAKAAAAAAADAAsAAAALAAIAAAADAAoAAAALAAAAAAADAAwAAAALAAMAAAA=")
+tile_set = ExtResource("3_44csn")
+navigation_enabled = false
+script = ExtResource("4_f6god")
+z_axis = 8
+metadata/is_internal_tilemap_layer = true
+
+[node name="Layer 2" type="TileMapLayer" parent="PerspectiveTileMapLayerGroup2"]
+z_index = 16
+position = Vector2(0, -16)
+tile_set = ExtResource("3_44csn")
+navigation_enabled = false
+script = ExtResource("4_f6god")
+z_axis = 16
+metadata/is_internal_tilemap_layer = true
+
+[node name="Layer 3" type="TileMapLayer" parent="PerspectiveTileMapLayerGroup2"]
+z_index = 24
+position = Vector2(0, -24)
+tile_set = ExtResource("3_44csn")
+navigation_enabled = false
+script = ExtResource("4_f6god")
+z_axis = 24
+metadata/is_internal_tilemap_layer = true
+
+[node name="Layer 4" type="TileMapLayer" parent="PerspectiveTileMapLayerGroup2"]
+z_index = 32
+position = Vector2(0, -32)
+tile_set = ExtResource("3_44csn")
+navigation_enabled = false
+script = ExtResource("4_f6god")
+z_axis = 32
+metadata/is_internal_tilemap_layer = true
+
+[node name="Layer 5" type="TileMapLayer" parent="PerspectiveTileMapLayerGroup2"]
+z_index = 40
+position = Vector2(0, -40)
+tile_set = ExtResource("3_44csn")
+navigation_enabled = false
+script = ExtResource("4_f6god")
+z_axis = 40
+metadata/is_internal_tilemap_layer = true
+
+[node name="Layer 6" type="TileMapLayer" parent="PerspectiveTileMapLayerGroup2"]
+z_index = 48
+position = Vector2(0, -48)
+tile_set = ExtResource("3_44csn")
+navigation_enabled = false
+script = ExtResource("4_f6god")
+z_axis = 48
+metadata/is_internal_tilemap_layer = true
+
+[node name="Layer 7" type="TileMapLayer" parent="PerspectiveTileMapLayerGroup2"]
+z_index = 56
+position = Vector2(0, -56)
+tile_set = ExtResource("3_44csn")
+script = ExtResource("4_f6god")
+z_axis = 56
+metadata/is_internal_tilemap_layer = true
+
 [node name="Player" parent="." instance=ExtResource("5_w7cnw")]
 collision_mask = 16842754
 

@@ -11,8 +11,8 @@ signal collided_with_floor
 ## Automatically updates visual, z-index and collision.
 @export var z_axis := 0.0:
 	set(value):
-		# Clamp value between 0 and LAYER_HEIGHT * 7
-		value = min(MapGlobals.LAYER_HEIGHT * 7, max(0, value)) 
+		# Clamp value between 0 and LAYER_HEIGHT * MAX_LAYERS
+		value = min(MapGlobals.LAYER_HEIGHT * MapGlobals.MAX_LAYERS, max(0, value)) 
 		if floor_collision: # Collide with floor if you have floor collisions
 			value = _z_axis_collision_floor_check(value) 
 		_z_axis_position_update(z_axis, value) # Done before setting z_axis to compare old vs new
@@ -63,7 +63,7 @@ func _create_z_collision_area() -> void:
 	if not z_floor_detection_area_holder and floor_collision:
 		z_floor_detection_area_holder = Node2D.new()
 		z_floor_detection_area_holder.name = "Z-Floor-Detection-Area-Holder"
-		for i in range(8):
+		for i in range(MapGlobals.MAX_LAYERS):
 			z_collision_area = Area2D.new()
 			z_collision_area.name = "Z-Collision-Area " + str(i)
 			z_collision_area.collision_mask = MapGlobals.get_z_collision_masks(i, true, false)
@@ -101,7 +101,8 @@ func _z_axis_collision_floor_check(destination : float) -> float:
 			elif floor_z <= z_axis and floor_z >= destination: # Downward
 				destination = floor_z
 				emit_signal("collided_with_floor")
-			elif (floor_z - z_axis) > 0 and (floor_z - z_axis) < 8: # Check if clipped under a floor
+			 # Check if clipped under a floor
+			elif (floor_z - z_axis) > 0 and (floor_z - z_axis) < MapGlobals.LAYER_HEIGHT:
 				destination = floor_z
 				emit_signal("collided_with_floor")
 	return destination
