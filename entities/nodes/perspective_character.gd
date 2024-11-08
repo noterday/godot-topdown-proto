@@ -31,6 +31,15 @@ var z_layer : int :
 		return z_axis / MapGlobals.LAYER_HEIGHT
 
 
+## A 3D Global position vector usable in navigation calculations
+var navigation_position : Vector3 :
+	get():
+		return Vector3(
+			global_position.x,
+			z_layer * MapGlobals.LAYER_HEIGHT,
+			global_position.y
+			)
+
 @onready var z_velocity : float = 0.0
 
 

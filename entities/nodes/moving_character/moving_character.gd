@@ -21,7 +21,6 @@ func _ready() -> void:
 	if state_machine:
 		state_machine.setup(self)
 
-
 # Moves the character according to the speed and movement direction
 func move(delta) -> void:
 	z_move_and_collide(delta)

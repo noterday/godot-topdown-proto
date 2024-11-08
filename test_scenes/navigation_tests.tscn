@@ -218,26 +218,31 @@ metadata/is_internal_tilemap_layer = true
 [node name="Player" parent="." instance=ExtResource("5_w7cnw")]
 collision_mask = 16842754
 
-[node name="Entity" type="CharacterBody2D" parent="."]
-position = Vector2(50, 50)
+[node name="TestLittleGuy" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation", "visual_branch", "floor_collision")]
+position = Vector2(145, 120)
 collision_layer = 2
 script = ExtResource("6_xiwtw")
+animation = NodePath("Visuals/PerspectiveAnimatedSprite2D")
+visual_branch = NodePath("Visuals")
+floor_collision = NodePath("FloorCollision")
 
-[node name="Visuals" type="Node2D" parent="Entity"]
+[node name="Visuals" type="Node2D" parent="TestLittleGuy"]
 
-[node name="PerspectiveAnimatedSprite2D" type="AnimatedSprite2D" parent="Entity/Visuals"]
+[node name="PerspectiveAnimatedSprite2D" type="AnimatedSprite2D" parent="TestLittleGuy/Visuals"]
 position = Vector2(-8, -10)
 sprite_frames = SubResource("SpriteFrames_s2iss")
 animation = &"walk"
 centered = false
 script = ExtResource("7_hhx7o")
 
-[node name="FloorCollision" type="CollisionShape2D" parent="Entity"]
+[node name="FloorCollision" type="CollisionShape2D" parent="TestLittleGuy"]
 position = Vector2(-0.5, 3)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_an5cm")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Entity"]
+[node name="Navigation" type="Node3D" parent="TestLittleGuy"]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="TestLittleGuy/Navigation"]
 debug_enabled = true
 
-[connection signal="debug_player_jumped" from="Player" to="Entity" method="_on_player_debug_player_jumped"]
+[connection signal="debug_player_jumped" from="Player" to="TestLittleGuy" method="_on_player_debug_player_jumped"]

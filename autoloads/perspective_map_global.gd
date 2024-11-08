@@ -21,6 +21,9 @@ enum TILE_MASKS {FLOOR = 16, WALL = 24}
 enum TILESET_PHYSICS_LAYERS {FLOOR = 0, WALL = 1}
 
 
+var current_map : RID
+
+
 ## Creates a bitmask for the floor/wall/edge collision layers
 # TODO: Change this to respect existing masks on the non floor/wall layers.
 func get_z_collision_masks(height : int, floors : bool, walls : bool) -> int:
