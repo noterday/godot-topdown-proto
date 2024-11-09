@@ -1,29 +1,41 @@
-## Should manage a bunch of tilemap_layers.
-## Manages dynamically loading them (maybe lol)
-## Manages doing their navigation meshes globally (TODO TODO HERE).
+## A map stores every tilemap and object in a given area of the game.
+## There should be a single map per area of the game, which holds many tilemaps.
+## It generates valid 3D collision meshes according to the floor collisions of all it's children.
 extends Node2D
 
 
+## This value represents the maximum height and width of a merged polygon.
+## [br] Setting this too small leads to a high total polygon count.
+## [br] Setting this too high leads to more sliver triangles.
+const MAX_TILE_MERGING_SIZE : int = 64
+
+
+## If set to true and navmesh debugging is active, the navigation polygons will be visualized.
+## The resulting polygons on screen are slightly innacurate in that they do not take into account
+## the final mesh baking step.
 @export var custom_debug_navmesh_visualisation := false
 
+
 # Polygons generated for every layer of the map. Used to generate a 3D Navigation mesh.
+# The first dimension represents each height layer, while the second stores the polygons.
 # These are kept in memory even once the navmesh is created, for debug visualisation.
 @onready var _navigation_polygons : Array[Array]
-@onready var map : RID
+
 
 # Called when the node enters the scene tree for the first time.
+# Generates the polygon and navigation data.
 func _ready() -> void:
 	gather_navigation_polygons()
 	debug_navigation_display_step()
 	navmesh_creation.call_deferred()
+	## Debug scene only stuff, to remove
 	$Player.debug_player_jumped.connect($TestLittleGuy.debug_player_jump_callback)
 
 
 ## Iterates through the child nodes to find and merge all floor polygons into optimized shapes.
 func gather_navigation_polygons() -> void:
-	var tilemaps : Array[PerspectiveTileMapLayer]
-	var unmerged_polygons : Array[PackedVector2Array]
-	# Triangulation function. Defined as a lambda as its useless elsewere
+	# Poly triangulation function.
+	# Defined as a lambda as its useless elsewere.
 	var triangulate = func(old_polys : Array[PackedVector2Array]) -> Array[PackedVector2Array]:
 		var new_polys : Array[PackedVector2Array] = []
 		var triangle : PackedVector2Array = []
@@ -35,21 +47,30 @@ func gather_navigation_polygons() -> void:
 					new_polys.append(triangle)
 					triangle = []
 		return new_polys
+	
+	
+	var tilemaps : Array[PerspectiveTileMapLayer]
+	var unmerged_polygons : Array[PackedVector2Array]
+	
 	# Fetch every tile collision from the tilemaps
 	tilemaps = _get_all_tilemaps(self)
 	for i in range(MapGlobals.MAX_LAYERS):
 		_navigation_polygons.append([])
 		unmerged_polygons = []
+		
+		# Iterate through the tilemaps by their height
+		# Then add every floor cell into the polygon list
 		for tilemap in tilemaps.filter(func(p_tilemap): return p_tilemap.z_layer == i):
 			unmerged_polygons.append_array(
 				tilemap.get_collision_polygons(MapGlobals.TILESET_PHYSICS_LAYERS.FLOOR)
 				)
-		# Create the polygons by first merging them, then retriangulating them
-		unmerged_polygons = MapGlobals.merge_polygons(unmerged_polygons, 64)
+		
+		# Create the polygons by first merging them, then triangulating them
+		unmerged_polygons = MapGlobals.merge_polygons(unmerged_polygons, MAX_TILE_MERGING_SIZE)
 		_navigation_polygons[i] = triangulate.call(unmerged_polygons)
 
 
-# Used to get every perspective tilemap node recursively
+# Used to get every perspective child tilemap node recursively
 func _get_all_tilemaps(node : Node) -> Array[PerspectiveTileMapLayer]:
 	var layers : Array[PerspectiveTileMapLayer] = []
 	if node is PerspectiveTileMapLayer:
@@ -94,29 +115,37 @@ func debug_navigation_display_step() -> void:
 				layer_node.add_child(polygon2d)
 
 
-# Navmesh creation
+## Creation of the navigation map according to the generated polygon shapes.
+## This function sets the generated map as the current global map in the MapGlobals autoload.
 func navmesh_creation() -> void:
 	# Create a new navigation map.
-	map = NavigationServer3D.map_create()
+	var map : RID = NavigationServer3D.map_create()
 	NavigationServer3D.map_set_up(map, Vector3.UP)
 	NavigationServer3D.map_set_active(map, true)
-	MapGlobals.current_map = map
+	MapGlobals.current_navigation_map = map
 
 	# Create a new navigation region and add it to the map.
-	var region: RID = NavigationServer3D.region_create()
+	var region : RID = NavigationServer3D.region_create()
 	NavigationServer3D.region_set_transform(region, Transform3D())
 	NavigationServer3D.region_set_map(region, map)
 
 	# Create a navigation mesh for the region.
-	var new_navigation_mesh := NavigationMesh.new()
-	new_navigation_mesh.agent_radius = 7 # Less than half a tile!
+	var new_navigation_mesh : = NavigationMesh.new()
+	new_navigation_mesh.agent_radius = 7.5 # Less than half a tile! Maximum before hallways break.
+	
+	# Bake the polygons into the mesh using a source geometry object.
 	var source_geometry_data := NavigationMeshSourceGeometryData3D.new()
 	var face : PackedVector3Array
 	for h in len(_navigation_polygons):
 		for nav_poly in _navigation_polygons[h]:
 			face = []
 			for point in nav_poly:
-				face.append(Vector3(point.x, h * MapGlobals.LAYER_HEIGHT, point.y))
+				face.append(Vector3(
+					point.x,
+					h * MapGlobals.LAYER_HEIGHT,
+					point.y - (h * MapGlobals.LAYER_HEIGHT)))
 			source_geometry_data.add_faces(face, Transform3D())
 	NavigationServer3D.bake_from_source_geometry_data(new_navigation_mesh, source_geometry_data)
+	
+	# Set the baked mesh onto the map.
 	NavigationServer3D.region_set_navigation_mesh(region, new_navigation_mesh)

@@ -21,13 +21,13 @@ var z_layer : int :
 		return z_axis / MapGlobals.LAYER_HEIGHT
 
 
-## Duplicates the tile_set ressource as soon as it is assigned to make it unique.
+## Duplicates the tile_set ressource as soon as it is assigned to make it unique
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		self.tile_set = self.tile_set.duplicate()  # Makes the tileset unique
 
 
-# Returns a rect representing the space taken by the tilemap in the game world
+## Returns a rect equal to the area taken by the tilemap in the game world
 func get_world_rect() -> Rect2:
 	return Rect2(
 		get_used_rect().position * tile_set.tile_size, 
@@ -35,7 +35,7 @@ func get_world_rect() -> Rect2:
 		)
 
 
-## Returns a new instance with the tileset value set
+## Initializer. Returns a new tilemap with the given tile_set value
 static func new_with_tileset(_tile_set : TileSet) -> PerspectiveTileMapLayer:
 	var tile_map_layer : PerspectiveTileMapLayer
 	tile_map_layer = PerspectiveTileMapLayer.new()
@@ -54,7 +54,7 @@ func _set_collision_bits_from_z_axis() -> void:
 			)
 
 
-## Returns every polygon for a given physic layer.
+## Returns every polygon for a given tileset physic layer.
 func get_collision_polygons(physic_layer : int) -> Array[PackedVector2Array]:
 	var tile : TileData
 	var polygon : PackedVector2Array

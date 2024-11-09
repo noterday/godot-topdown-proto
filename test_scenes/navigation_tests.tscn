@@ -219,10 +219,11 @@ metadata/is_internal_tilemap_layer = true
 collision_mask = 16842754
 
 [node name="TestLittleGuy" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animation", "visual_branch", "floor_collision")]
-position = Vector2(145, 120)
+position = Vector2(416, 150)
 collision_layer = 2
 script = ExtResource("6_xiwtw")
 animation = NodePath("Visuals/PerspectiveAnimatedSprite2D")
+z_axis = 8.0
 visual_branch = NodePath("Visuals")
 floor_collision = NodePath("FloorCollision")
 

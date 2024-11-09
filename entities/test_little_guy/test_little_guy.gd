@@ -1,3 +1,6 @@
+## A very rudimentary entity which follows the player when a signal is received.
+## Used mainly to test navigation.
+
 extends MovingCharacter
 
 
@@ -14,10 +17,14 @@ func _ready() -> void:
 	
 	node3d_navigation_node.add_child(nav_agent)
 	nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	MapGlobals.current_navigation_map_update.connect(update_current_navigation_map)
+
+
+func update_current_navigation_map() -> void:
+	nav_agent.set_navigation_map(MapGlobals.current_navigation_map)
 
 
 func _process(delta: float) -> void:
-	nav_agent.set_navigation_map(MapGlobals.current_map)
 	node3d_navigation_node.position = navigation_position
 	# Do not query when the map has never synchronized and is empty.
 	if NavigationServer2D.map_get_iteration_id(nav_agent.get_navigation_map()) == 0:

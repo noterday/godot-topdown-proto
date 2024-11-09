@@ -9,20 +9,26 @@ const MAX_LAYERS := 8
 ## The standard height of a tile
 ## Determines the number of Z units between each collision layers and tilemap layers
 # WARNING: The entire physics system depends on this value.
-# Everything has been designed with a value of 8 in mind, 
-# even if the wall tiles are twice as tall.
-# Lower values seem fine. Going above 10 breaks z-indexes.
+# This was set to 8 to match an older tileset cell size. Changing this value could break things.
 const LAYER_HEIGHT := 8
 
 
 ## Starting masking layer index for the 2 types of tilemap collisions (floor & walls)
 enum TILE_MASKS {FLOOR = 16, WALL = 24}
 
+
 ## Index of the tileset physics layers. Unfortunately, tileset physics layers cannot be named.
 enum TILESET_PHYSICS_LAYERS {FLOOR = 0, WALL = 1}
 
 
-var current_map : RID
+## A reference to the currently active navigation map. Used by agents to register it.
+var current_navigation_map : RID:
+	set(value):
+		current_navigation_map = value
+		current_navigation_map_update.emit()
+
+## A signal to tell agents when to update their navigation maps
+signal current_navigation_map_update()
 
 
 ## Creates a bitmask for the floor/wall/edge collision layers
@@ -38,6 +44,10 @@ func get_z_collision_masks(height : int, floors : bool, walls : bool) -> int:
 
 
 
+## This utility function exists to help with operations on navigation meshes
+## It returns an array of polygon points smaller than the original, by iteratively merging polygons.
+## [br]If 'bound' is set to a value higher than 0, 
+## the function will not merge polygons large than it's size on either axis.
 func merge_polygons(polygons : Array[PackedVector2Array], bound : float = 0) -> Array[PackedVector2Array]:
 	var polygon_a : PackedVector2Array
 	var polygon_b : PackedVector2Array
@@ -71,7 +81,7 @@ func merge_polygons(polygons : Array[PackedVector2Array], bound : float = 0) -> 
 					continue
 				
 				# The merged polygon would be too big, so skip to the next loop.
-				if bound != 0: # Unset value ignores this check
+				if bound >= 0: # Unset value ignores this check
 					minv = Vector2(pow(2,31)-1, pow(2,31)-1)
 					maxv = minv * -1
 					for v in merged_polygons[0]:
