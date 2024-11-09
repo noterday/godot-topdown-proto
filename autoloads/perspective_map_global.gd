@@ -1,6 +1,7 @@
 ## Global value and utility functions related to tilemaps and collisions
 extends Node
 
+
 ## The total amount of height layers possible
 const MAX_LAYERS := 8
 
@@ -36,12 +37,15 @@ func get_z_collision_masks(height : int, floors : bool, walls : bool) -> int:
 	return mask
 
 
-func merge_polygons(polygons : Array[PackedVector2Array]) -> Array[PackedVector2Array]:
+
+func merge_polygons(polygons : Array[PackedVector2Array], bound : float = 0) -> Array[PackedVector2Array]:
 	var polygon_a : PackedVector2Array
 	var polygon_b : PackedVector2Array
 	var polygons_to_remove : Array
 	var index_to_remove : Dictionary
 	var merged_polygons : Array[PackedVector2Array]
+	var minv : Vector2
+	var maxv : Vector2
 	while true:
 		# Clear the polygons to remove
 		polygons_to_remove = []
@@ -65,6 +69,16 @@ func merge_polygons(polygons : Array[PackedVector2Array]) -> Array[PackedVector2
 				# The polygons dind't merge so skip to the next loop
 				if merged_polygons.size() != 1:
 					continue
+				
+				# The merged polygon would be too big, so skip to the next loop.
+				if bound != 0: # Unset value ignores this check
+					minv = Vector2(pow(2,31)-1, pow(2,31)-1)
+					maxv = minv * -1
+					for v in merged_polygons[0]:
+						minv = Vector2(min(minv.x, v.x),min(minv.y, v.y))
+						maxv = Vector2(max(maxv.x, v.x),max(maxv.y, v.y))
+					if Vector2(maxv - minv).x > bound or Vector2(maxv - minv).y > bound:
+						continue
 				
 				# Replace the second polygon with the merged one
 				polygons[j] = merged_polygons[0]
