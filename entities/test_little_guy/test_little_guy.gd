@@ -4,6 +4,9 @@
 extends MovingCharacter
 
 
+# TODO: Export a value with different navigation types here and test them.
+
+
 ## A Node3D which holds navigation nodes. Should have a NavigationAgent3D as a child.
 @onready var node3d_navigation_node : Node3D
 @onready var nav_agent : NavigationAgent3D

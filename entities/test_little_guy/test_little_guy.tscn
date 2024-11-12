@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://bda6wdqmufy0q"]
+
+[ext_resource type="Script" path="res://entities/test_little_guy/test_little_guy.gd" id="1_7vsqf"]
+[ext_resource type="Texture2D" uid="uid://b35bvs2kfqn3q" path="res://assets/test_lil_guy/simple.png" id="2_wjvdm"]
+[ext_resource type="Script" path="res://entities/nodes/perspective_animated_sprite_2d.gd" id="3_tod3k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akunv"]
+atlas = ExtResource("2_wjvdm")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s40uf"]
+atlas = ExtResource("2_wjvdm")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fo6fg"]
+atlas = ExtResource("2_wjvdm")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d671q"]
+atlas = ExtResource("2_wjvdm")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s2iss"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akunv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s40uf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fo6fg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d671q")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_an5cm"]
+radius = 4.0
+height = 8.0
+
+[node name="TestLittleGuy" type="CharacterBody2D" node_paths=PackedStringArray("animation", "visual_branch", "floor_collision")]
+position = Vector2(416, 150)
+collision_layer = 2
+script = ExtResource("1_7vsqf")
+animation = NodePath("Visuals/PerspectiveAnimatedSprite2D")
+z_axis = 8.0
+visual_branch = NodePath("Visuals")
+floor_collision = NodePath("FloorCollision")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="PerspectiveAnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
+position = Vector2(-8, -10)
+sprite_frames = SubResource("SpriteFrames_s2iss")
+animation = &"walk"
+centered = false
+script = ExtResource("3_tod3k")
+
+[node name="FloorCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 3)
+shape = SubResource("CapsuleShape2D_an5cm")
+
+[node name="Navigation" type="Node3D" parent="."]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Navigation"]
+path_postprocessing = 1
