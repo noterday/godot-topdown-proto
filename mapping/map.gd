@@ -10,6 +10,15 @@ extends Node2D
 const MAX_TILE_MERGING_SIZE : int = 64
 
 
+## The tilemap used to calculate the camera boundary of the map scene.
+@export var camera_bound_tilemap : TileMapLayer
+
+
+# A Node2D which stores all the entities which are loaded in this map.
+# Unused
+#@export var entities_container : Node2D
+
+
 ## If set to true and navmesh debugging is active, the navigation polygons will be visualized.
 ## The resulting polygons on screen are slightly innacurate in that they do not take into account
 ## the final mesh baking step.
@@ -25,11 +34,19 @@ const MAX_TILE_MERGING_SIZE : int = 64
 # Called when the node enters the scene tree for the first time.
 # Generates the polygon and navigation data.
 func _ready() -> void:
+	create_navigation_data()
+	setup_camera_boundary()
+	
+	# Debug scene stuff. Remove.
+	$Entities/Player.debug_player_jumped.connect(
+		$Entities/TestLittleGuy.debug_player_jump_callback
+		)
+
+
+func create_navigation_data():
 	gather_navigation_polygons()
 	debug_navigation_display_step()
 	navmesh_creation.call_deferred()
-	## Debug scene only stuff, to remove
-	$Player.debug_player_jumped.connect($TestLittleGuy.debug_player_jump_callback)
 
 
 ## Iterates through the child nodes to find and merge all floor polygons into optimized shapes.
@@ -149,3 +166,15 @@ func navmesh_creation() -> void:
 	
 	# Set the baked mesh onto the map.
 	NavigationServer3D.region_set_navigation_mesh(region, new_navigation_mesh)
+
+
+func setup_camera_boundary() -> void:
+	var rect : Rect2i
+	var tile_size : Vector2i
+	if camera_bound_tilemap:
+		rect = camera_bound_tilemap.get_used_rect()
+		tile_size = camera_bound_tilemap.tile_set.tile_size
+		Global.player.camera.limit_left = rect.position.x * tile_size.x
+		Global.player.camera.limit_right = rect.end.x * tile_size.x
+		Global.player.camera.limit_top = rect.position.y * tile_size.y
+		Global.player.camera.limit_bottom = rect.end.y * tile_size.y

@@ -16,7 +16,8 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
 
-MapGlobals="*res://autoloads/perspective_map_global.gd"
+MapGlobals="*res://autoloads/map_global.gd"
+Global="*res://autoloads/global.gd"
 
 [input]
 
@@ -84,4 +85,3 @@ debug_rise_down={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)

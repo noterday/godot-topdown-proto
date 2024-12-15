@@ -1,7 +1,8 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://kftl50u8knj5"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://kftl50u8knj5"]
 
-[ext_resource type="Texture2D" uid="uid://bxwqt7d7nw126" path="res://assets/test_tileset_01/test_tileset_floor.png" id="1_emgxu"]
-[ext_resource type="Texture2D" uid="uid://udhkyrgrohhl" path="res://assets/test_tileset_01/test_tileset_wall.png" id="3_vcrt0"]
+[ext_resource type="Texture2D" uid="uid://bxwqt7d7nw126" path="res://assets/tilesets/test_tileset_02/test_tileset_floor.png" id="1_emgxu"]
+[ext_resource type="Texture2D" uid="uid://bc2fgf57jq1v1" path="res://assets/misc/exterior-1.png" id="3_v8jf4"]
+[ext_resource type="Texture2D" uid="uid://udhkyrgrohhl" path="res://assets/tilesets/test_tileset_02/test_tileset_wall.png" id="3_vcrt0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nn5nd"]
 texture = ExtResource("1_emgxu")
@@ -486,6 +487,17 @@ texture = ExtResource("3_vcrt0")
 11:3/0 = 0
 11:3/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3y1o0"]
+texture = ExtResource("3_v8jf4")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+
 [resource]
 physics_layer_0/collision_layer = 65537
 physics_layer_1/collision_layer = 1
@@ -500,3 +512,4 @@ custom_data_layer_2/name = "BothTilingMatch"
 custom_data_layer_2/type = 6
 sources/0 = SubResource("TileSetAtlasSource_nn5nd")
 sources/1 = SubResource("TileSetAtlasSource_pe1up")
+sources/2 = SubResource("TileSetAtlasSource_3y1o0")

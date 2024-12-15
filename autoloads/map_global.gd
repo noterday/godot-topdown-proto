@@ -27,6 +27,7 @@ var current_navigation_map : RID:
 		current_navigation_map = value
 		current_navigation_map_update.emit()
 
+
 ## A signal to tell agents when to update their navigation maps
 signal current_navigation_map_update()
 

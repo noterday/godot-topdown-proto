@@ -25,6 +25,16 @@ const DOUBLE_TAP_ACTIONS := ["move_left", "move_right", "move_up", "move_down"]
 @onready var sm := $StateMachine
 
 
+## Reference to the camera
+@onready var camera := $Visuals/Camera2D
+
+
+func _ready() -> void:
+	super()
+	if not Global.player:
+		Global.player = self
+
+
 # Processes the user input for the player character
 func _process(_delta: float) -> void:
 	var double_tap = check_double_tap()

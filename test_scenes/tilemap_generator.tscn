@@ -2,7 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://b37oqq2w3ri6k" path="res://mapping/tooling/tilemap_generator/tilemap_generator_tileset.tres" id="1_db772"]
 [ext_resource type="Script" path="res://mapping/tooling/tilemap_generator/tilemap_generator.gd" id="2_t4kvq"]
-[ext_resource type="TileSet" uid="uid://kftl50u8knj5" path="res://assets/test_tileset_01/test_tileset_02.tres" id="3_0ssqq"]
+[ext_resource type="TileSet" uid="uid://kftl50u8knj5" path="res://assets/tilesets/test_tileset_02/test_tileset_02.tres" id="3_0ssqq"]
 [ext_resource type="Script" path="res://mapping/nodes/perspective_tilemap_layer.gd" id="4_i3v7d"]
 [ext_resource type="PackedScene" uid="uid://dfeetq5q3xxrh" path="res://test_scenes/player.tscn" id="5_icsfu"]
 
